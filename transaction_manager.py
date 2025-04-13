@@ -27,6 +27,17 @@ def save_transaction(date, description, amount, category):
     # Save the updated DataFrame back to CSV
     df.to_csv(CSV_FILE, index=False)
 
+def delete_transaction(index):
+    if os.path.exists(DATA_FILE):
+        df = pd.read_csv(DATA_FILE)
+        if 0 <= index < len(df):
+            df = df.drop(index).reset_index(drop=True)
+            df.to_csv(DATA_FILE, index=False)
+            return True, "Transaction deleted."
+        else:
+            return False, "Invalid transaction index."
+    return False, "No data file found."
+
 def import_upi_history_file(uploaded_file):
     # Parse and categorize UPI transactions
     if uploaded_file is not None:
