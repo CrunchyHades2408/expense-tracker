@@ -16,8 +16,8 @@ uploaded_file = st.file_uploader("Upload UPI transaction file (CSV or Excel)", t
 if uploaded_file is not None:
     success, message = import_upi_history_file(uploaded_file)
     if success:
+        st.session_state.uploaded_file = uploaded_file  # Save uploaded file in session state
         st.success(message)
-        st.experimental_rerun()  # Reload the app to show updated data
     else:
         st.error(message)
 
@@ -36,7 +36,7 @@ description = st.text_input("📝 Expense Description")
 
 if st.button("Categorize and Save"):
     if description and amount > 0:
-        category = categorise_using_gemini(description) # Categorize using Gemini
+        category = categorise_using_gemini(description)  # Categorize using Gemini
         save_transaction(date_val, description, amount, category)  # Save the new expense
         st.success(f"Saved! Category: **{category}**")
     else:
