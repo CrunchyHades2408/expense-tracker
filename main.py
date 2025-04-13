@@ -36,7 +36,7 @@ description = st.text_input("📝 Expense Description")
 
 if st.button("Categorize and Save"):
     if description and amount > 0:
-        category = categorize_using_gemini(description)  # Categorize using Gemini
+        category = categorise_using_gemini(description) # Categorize using Gemini
         save_transaction(date_val, description, amount, category)  # Save the new expense
         st.success(f"Saved! Category: **{category}**")
     else:
