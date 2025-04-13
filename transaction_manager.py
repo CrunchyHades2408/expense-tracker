@@ -28,11 +28,11 @@ def save_transaction(date, description, amount, category):
     df.to_csv(CSV_FILE, index=False)
 
 def delete_transaction(index):
-    if os.path.exists(DATA_FILE):
-        df = pd.read_csv(DATA_FILE)
+    if os.path.exists(CSV_FILE):
+        df = pd.read_csv(CSV_FILE)
         if 0 <= index < len(df):
             df = df.drop(index).reset_index(drop=True)
-            df.to_csv(DATA_FILE, index=False)
+            df.to_csv(CSV_FILE, index=False)
             return True, "Transaction deleted."
         else:
             return False, "Invalid transaction index."
