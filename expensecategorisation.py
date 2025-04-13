@@ -66,7 +66,7 @@ col1, col2 = st.columns(2)
 with col1:
     date_val = st.date_input("📅 Date", value=date.today())
 with col2:
-    amount = st.number_input("💵 Amount", min_value=0.0, step=0.5)
+    amount = st.number_input("💵 Amount", min_value=0, step=10)
 
 description = st.text_input("📝 Expense Description")
 
