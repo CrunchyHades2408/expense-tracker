@@ -52,7 +52,7 @@ def import_upi_history_file(uploaded_file):
             df.columns = ["Date", "Description", "Amount"]
 
             # Categorize using Gemini
-            df["Category"] = df["Description"].apply(categorize_using_gemini)
+            df["Category"] = df["Description"].apply(categorise_using_gemini)
 
             # Merge with existing transaction history
             existing_df = load_transactions()
