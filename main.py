@@ -8,6 +8,11 @@ from expensecategorisation import categorise_using_gemini
 st.set_page_config(page_title="Smart Expense Tracker", page_icon="💸")
 st.title("💸 Smart Expense Tracker")
 
+# Optional rerun fix if st.experimental_rerun() crashes
+if 'deleted' in st.session_state:
+    del st.session_state['deleted']
+    st.experimental_rerun()
+
 # Section for uploading UPI transaction file
 st.markdown("---")
 st.subheader("📥 Import UPI Transaction History")
@@ -66,7 +71,8 @@ else:
                 success, msg = delete_transaction(i)
                 if success:
                     st.success(msg)
-                    st.experimental_rerun()
+                    st.session_state['deleted'] = True  # Trigger rerun safely
+                    st.stop()
                 else:
                     st.error(msg)
 
