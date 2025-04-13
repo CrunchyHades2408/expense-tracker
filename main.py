@@ -1,9 +1,8 @@
 import streamlit as st
 from datetime import date
-from transaction_manager import import_upi_history_file, load_transactions
+from transaction_manager import import_upi_history_file, load_transactions, save_transaction
 from charts import show_spending_chart
-from expensecategorisation import categorise_using_gemini
-
+from expensecategorisation import categorize_using_gemini
 
 # === Streamlit UI Setup ===
 st.set_page_config(page_title="Smart Expense Tracker", page_icon="💸")
@@ -38,8 +37,7 @@ description = st.text_input("📝 Expense Description")
 if st.button("Categorize and Save"):
     if description and amount > 0:
         category = categorize_using_gemini(description)  # Categorize using Gemini
-        # Save to CSV or database (you can call save_transaction from transaction_manager)
-        save_transaction(date_val, description, amount, category)  # Assuming you have this method
+        save_transaction(date_val, description, amount, category)  # Save the new expense
         st.success(f"Saved! Category: **{category}**")
     else:
         st.warning("Please enter a valid description and amount.")

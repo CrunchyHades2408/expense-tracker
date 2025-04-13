@@ -12,5 +12,5 @@ def categorise_using_gemini(description):
     Respond with only the category name.
     """
     model = genai.GenerativeModel('gemini-1.5-pro-latest')
-    reponse = model.generate_content(prompt)
-    return response.text.strip()
+    response = model.generate_content(prompt)
+    return response.text.strip() 

@@ -11,10 +11,14 @@ def show_spending_chart():
 
     category_totals = df.groupby("Category")["Amount"].sum()
 
-    # UI options to customize view
-    st.radio("Choose Chart Type", options=["Pie Chart", "Bar Chart"], horizontal=True, key="chart_type")
+    # Ensure the session_state for chart_type exists, otherwise initialize it
+    if "chart_type" not in st.session_state:
+        st.session_state.chart_type = "Pie Chart"  # Set default chart type
 
-    if st.session_state.chart_type == "Pie Chart":
+    # UI options to customize view
+    chart_type = st.radio("Choose Chart Type", options=["Pie Chart", "Bar Chart"], horizontal=True, key="chart_type")
+
+    if chart_type == "Pie Chart":
         fig, ax = plt.subplots()
         ax.pie(
             category_totals,
@@ -28,7 +32,7 @@ def show_spending_chart():
         plt.title("Spending Distribution")
         st.pyplot(fig)
 
-    elif st.session_state.chart_type == "Bar Chart":
+    elif chart_type == "Bar Chart":
         fig, ax = plt.subplots()
         category_totals.plot(kind='bar', ax=ax, color='skyblue')
         plt.title("Spending by Category")
