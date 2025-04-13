@@ -2,7 +2,7 @@ import streamlit as st
 from datetime import date
 from transaction_manager import import_upi_history_file, load_transactions, save_transaction
 from charts import show_spending_chart
-from expensecategorisation import categorize_using_gemini
+from expensecategorisation import categorise_using_gemini
 
 # === Streamlit UI Setup ===
 st.set_page_config(page_title="Smart Expense Tracker", page_icon="💸")
