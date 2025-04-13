@@ -1,6 +1,6 @@
 import streamlit as st
 from datetime import date
-from transaction_manager import import_upi_history_file, load_transactions, save_transaction
+from transaction_manager import import_upi_history_file, load_transactions, save_transaction, delete_transaction
 from charts import show_spending_chart
 from expensecategorisation import categorise_using_gemini
 
@@ -39,10 +39,11 @@ if st.button("Categorize and Save"):
         category = categorise_using_gemini(description)  # Categorize using Gemini
         save_transaction(date_val, description, amount, category)  # Save the new expense
         st.success(f"Saved! Category: **{category}**")
+        st.experimental_rerun()
     else:
         st.warning("Please enter a valid description and amount.")
 
-# === Display All Transactions ===
+# === Display All Transactions with Delete ===
 st.markdown("---")
 st.subheader("📋 All Transactions")
 df = load_transactions()
@@ -50,7 +51,24 @@ df = load_transactions()
 if df.empty:
     st.info("No transactions recorded yet.")
 else:
-    st.dataframe(df, use_container_width=True)
+    for i, row in df.iterrows():
+        col1, col2, col3, col4, col5 = st.columns([2, 3, 2, 2, 1])
+        with col1:
+            st.write(row['Date'])
+        with col2:
+            st.write(row['Description'])
+        with col3:
+            st.write(f"₹{row['Amount']}")
+        with col4:
+            st.write(row['Category'])
+        with col5:
+            if st.button("🗑️", key=f"delete_{i}"):
+                success, msg = delete_transaction(i)
+                if success:
+                    st.success(msg)
+                    st.experimental_rerun()
+                else:
+                    st.error(msg)
 
 # === Spending Overview: Chart Section ===
 st.markdown("---")
