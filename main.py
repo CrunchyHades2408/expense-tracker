@@ -1,7 +1,7 @@
 import streamlit as st
 from transaction_manager import import_upi_history_file, load_transactions
 from charts import show_spending_chart
-from categorizer import categorize_using_gemini  # If categorizing manually
+from expensecategorisation import categorise_using_gemini
 
 # === Streamlit UI Setup ===
 st.set_page_config(page_title="Smart Expense Tracker", page_icon="💸")
