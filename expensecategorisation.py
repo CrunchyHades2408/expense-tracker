@@ -1,8 +1,8 @@
 import streamlit as st
 import google.generativeai as genai
 
-
 genai.configure(api_key=st.secrets["gemini"]["api_key"])
+
 
 def predict_category(description):
     prompt = f"""
