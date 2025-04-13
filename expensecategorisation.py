@@ -2,9 +2,10 @@
 import streamlit as st
 import google.generativeai as genai
 
+# Configure the Gemini API key
 genai.configure(api_key=st.secrets["gemini"]["api_key"])
 
-
+# Function to predict the expense category
 def predict_category(description):
     prompt = f"""
     Categorize the following expense description into one of these categories:
@@ -22,13 +23,20 @@ def predict_category(description):
         return category
     except Exception as e:
         return f"Error: {e}"
-st.set_page_config(page_title="Smart Expense Categorizer", page_icon="💸")
 
-st.title("💸 Smart Expense Categorizer (AI-Powered)")
-st.markdown("Enter any **expense description**, and AI will categorize it for you!")
+# Streamlit UI
+st.set_page_config(page_title="BudgetFlow", page_icon="💸")
 
+st.title("💸 Expense Categorizer")
+st.markdown("Enter your **expense description** and **amount**:")
+
+# Input fields
 description = st.text_input("📝 Expense Description:")
+amount = st.number_input("💰 Expense Amount (in ₹):", min_value=0.0, step=0.5)
 
-if description:
+# Show prediction when description and amount are entered
+if description and amount > 0:
     category = predict_category(description)
-    st.success(f"📂 Predicted Category: **{category}**")
+    st.success(f"📂 Category: **{category}**")
+    st.info(f"💸 Amount: ₹{amount}")
+
