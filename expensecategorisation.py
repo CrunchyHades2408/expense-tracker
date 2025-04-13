@@ -16,7 +16,7 @@ def categorize_using_gemini(description):
     Expense: {description}
     Respond only with the category name.
     """
-    model = genai.GenerativeModel('gemini--1.5-pro-latest')
+    model = genai.GenerativeModel('gemini-1.5-pro-latest')
     response = model.generate_content(prompt)
     return response.text.strip()
 
