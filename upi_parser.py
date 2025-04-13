@@ -46,7 +46,7 @@ def read_and_categorize_transactions(uploaded_file):
 
             # Categorize each transaction using Gemini
             st.info("Categorizing transactions... Please wait.")
-            df["Category"] = df["Description"].apply(categorize_using_gemini)
+            df["Category"] = df["Description"].apply(categorise_using_gemini)
 
             return df
-        except
+        except:
