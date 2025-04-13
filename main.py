@@ -1,4 +1,5 @@
 import streamlit as st
+from datetime import date
 from transaction_manager import import_upi_history_file, load_transactions
 from charts import show_spending_chart
 from expensecategorisation import categorise_using_gemini
