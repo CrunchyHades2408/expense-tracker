@@ -56,4 +56,4 @@ else:
 # === Spending Overview: Chart Section ===
 st.markdown("---")
 st.subheader("📊 Spending Overview")
-show_spending_chart(df)  # This function should show the spending chart
+show_spending_chart()  # This function should show the spending chart
