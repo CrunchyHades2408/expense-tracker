@@ -9,7 +9,7 @@ st.title("💸 Smart Expense Tracker")
 
 if 'deleted' in st.session_state:
     del st.session_state['deleted']
-    st.rerun()  # ✅ Updated from st.experimental_rerun()
+    st.rerun()  
 
 st.markdown("---")
 st.subheader("📥 Import UPI Transaction History")
