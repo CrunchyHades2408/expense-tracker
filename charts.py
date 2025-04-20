@@ -11,11 +11,9 @@ def show_spending_chart():
 
     category_totals = df.groupby("Category")["Amount"].sum()
 
-    # Ensure the session_state for chart_type exists, otherwise initialize it
     if "chart_type" not in st.session_state:
-        st.session_state.chart_type = "Pie Chart"  # Set default chart type
+        st.session_state.chart_type = "Pie Chart" 
 
-    # UI options to customize view
     chart_type = st.radio("Choose Chart Type", options=["Pie Chart", "Bar Chart"], horizontal=True, key="chart_type")
 
     if chart_type == "Pie Chart":
@@ -28,7 +26,7 @@ def show_spending_chart():
             colors=plt.cm.Paired.colors,
             wedgeprops={'edgecolor': 'white', 'linewidth': 1}
         )
-        ax.axis('equal')  # Equal aspect ratio ensures pie is drawn as a circle.
+        ax.axis('equal')  
         plt.title("Spending Distribution")
         st.pyplot(fig)
 
