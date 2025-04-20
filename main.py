@@ -4,8 +4,10 @@ from transaction_manager import import_upi_history_file, load_transactions, save
 from charts import show_spending_chart
 from expensecategorisation import categorise_using_gemini
 
-st.set_page_config(page_title="Smart Expense Tracker", page_icon="💸")
-st.title("💸 Smart Expense Tracker")
+st.set_page_config(page_title="BudgetFlow", page_icon="💸")
+
+st.markdown("<h1 style='margin-bottom:0;'>💸 BudgetFlow</h1>", unsafe_allow_html=True)
+st.markdown("<p style='font-size:20px; color:gray; margin-top:0;'>Smart Expense Tracker</p>", unsafe_allow_html=True)
 
 if 'deleted' in st.session_state:
     del st.session_state['deleted']
