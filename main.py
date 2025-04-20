@@ -9,7 +9,7 @@ st.title("💸 Smart Expense Tracker")
 
 if 'deleted' in st.session_state:
     del st.session_state['deleted']
-    st.experimental_rerun()
+    st.rerun()  # ✅ Updated from st.experimental_rerun()
 
 st.markdown("---")
 st.subheader("📥 Import UPI Transaction History")
@@ -39,7 +39,7 @@ if st.button("Categorize and Save"):
         category = categorise_using_gemini(description)
         save_transaction(date_val, description, amount, category)
         st.success(f"Saved! Category: **{category}**")
-        st.experimental_rerun()
+        st.rerun()  # ✅ Updated from st.experimental_rerun()
     else:
         st.warning("Please enter a valid description and amount.")
 
@@ -64,4 +64,5 @@ else:
 st.markdown("---")
 st.subheader("📊 Spending Overview")
 show_spending_chart()
+
 
