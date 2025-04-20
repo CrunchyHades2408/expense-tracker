@@ -16,11 +16,7 @@ BudgetFlow is a smart, AI-powered expense tracker built with Streamlit. It helps
 
 🖥️ Tech Stack
 Frontend: Streamlit
-
 Backend: Python
-
 Data Handling: Pandas
-
 Visualization: Matplotlib
-
 AI Categorization: Gemini API (Google Generative AI)
