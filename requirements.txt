@@ -3,3 +3,6 @@ google-generativeai
 pandas
 matplotlib
 openpyxl
+opencv-python
+numpy
+pytesseract
