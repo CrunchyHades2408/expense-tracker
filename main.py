@@ -3,6 +3,7 @@ from datetime import date
 from transaction_manager import import_upi_history_file, load_transactions, save_transaction
 from charts import show_spending_chart
 from expensecategorisation import categorise_using_gemini
+from bill_image_processor import process_bill_image  # Import the bill image processing function
 
 st.set_page_config(page_title="BudgetFlow", page_icon="💸")
 
@@ -11,7 +12,7 @@ st.markdown("<p style='font-size:20px; color:gray; margin-top:0;'>Smart Expense 
 
 if 'deleted' in st.session_state:
     del st.session_state['deleted']
-    st.rerun()  
+    st.rerun()
 
 st.markdown("---")
 st.subheader("📥 Import UPI Transaction History")
@@ -24,6 +25,21 @@ if uploaded_file is not None:
         st.success(message)
     else:
         st.error(message)
+
+st.markdown("---")
+st.subheader("🖼️ Upload and Process Bill Image")
+bill_image = st.file_uploader("Upload a bill image (JPG, PNG)", type=["jpg", "jpeg", "png"], key="bill_upload")
+
+if bill_image is not None:
+    transactions = process_bill_image(bill_image)  # Process the bill image
+    if transactions:
+        for transaction in transactions:
+            date_val, description, amount = transaction
+            category = categorise_using_gemini(description)
+            save_transaction(date_val, description, amount, category)
+            st.success(f"Transaction saved! Description: **{description}**, Amount: **₹{amount}**, Category: **{category}**")
+    else:
+        st.warning("No transactions detected in the uploaded bill image.")
 
 st.markdown("---")
 st.subheader("📝 Add New Expense")
@@ -41,7 +57,7 @@ if st.button("Categorize and Save"):
         category = categorise_using_gemini(description)
         save_transaction(date_val, description, amount, category)
         st.success(f"Saved! Category: **{category}**")
-        st.rerun()  # ✅ Updated from st.experimental_rerun()
+        st.rerun()
     else:
         st.warning("Please enter a valid description and amount.")
 
