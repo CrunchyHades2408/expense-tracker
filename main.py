@@ -3,7 +3,7 @@ from datetime import date
 from transaction_manager import import_upi_history_file, load_transactions, save_transaction
 from charts import show_spending_chart
 from expensecategorisation import categorise_using_gemini
-from bill_image_processor import process_bill_image  # Import the bill image processing function
+from bill_image_processor import process_bill_image 
 
 st.set_page_config(page_title="BudgetFlow", page_icon="💸")
 
@@ -31,7 +31,7 @@ st.subheader("🖼️ Upload and Process Bill Image")
 bill_image = st.file_uploader("Upload a bill image (JPG, PNG)", type=["jpg", "jpeg", "png"], key="bill_upload")
 
 if bill_image is not None:
-    transactions = process_bill_image(bill_image)  # Process the bill image
+    transactions = process_bill_image(bill_image) 
     if transactions:
         for transaction in transactions:
             date_val, description, amount = transaction
@@ -69,7 +69,7 @@ if df.empty:
     st.info("No transactions recorded yet.")
 else:
     for i, row in df.iterrows():
-        col1, col2, col3, col4 = st.columns([2, 3, 2, 2])
+        col1, col2, col3, col4, col5 = st.columns([2, 3, 2, 2, 1])
         with col1:
             st.write(row['Date'])
         with col2:
@@ -78,9 +78,18 @@ else:
             st.write(f"₹{row['Amount']}")
         with col4:
             st.write(row['Category'])
+        with col5:
+            if st.button("❌", key=f"delete_{i}"):
+                from transaction_manager import delete_transaction
+                delete_transaction(i)
+                st.success("Transaction deleted.")
+                st.session_state['deleted'] = True
+                st.rerun()
 
 st.markdown("---")
-st.subheader("📊 Spending Overview")
+st.subheader("📊 Spending Breakdown")
 show_spending_chart()
+
+
 
 
